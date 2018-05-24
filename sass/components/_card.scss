@@ -1,0 +1,137 @@
+.card {
+
+    // FUNCTIONALITY OF THE CARD (ROTATION)
+
+    // For a better transition when rotating.
+    perspective: 150rem;
+    position: relative;
+
+    // Give the parent card element the same height as the child elements, because when all its child elements are positioned absolute the parent container collapses.
+    height: 50rem;
+
+    &__side {
+        height: 50rem;
+        width: 100%;
+        border-radius: 3px;
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .2);
+        transition: all .8s ease;
+
+        // Position the front and back of the card sides on top of each other.
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        // Ensure that the backside of the card can't be seen by default and when rotating.
+        backface-visibility: hidden;
+
+        &--front {
+            background-color: $color-white;
+        }
+
+        &--back {
+            // Set the backside of the card rotated by default.
+            transform: rotateY(180deg);
+
+            &--1 {
+                background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+            }
+        }
+    }
+
+    // When hovering the card element, rotate the front side of the card to the back by -180deg.
+    &:hover &__side--front {
+        transform: rotateY(-180deg);
+    }
+
+    // When hovering the card element, rotate the back side of the card back to its original position, which is set to 180deg.
+    &:hover &__side--back {
+        transform: rotateY(0);
+    }
+
+    // STYLING CARD FRONT-SIDE
+    &__picture {
+        background-size: cover;
+        height: 23rem;
+        
+        // Blend the image with the linear-gradient
+        background-blend-mode: screen;
+        
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        
+        &--1 {
+            background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark), url(../img/nat-5.jpg);
+        }
+    }
+
+    &__heading {
+        font-size: 2.8rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        text-align: right;
+        position: absolute;
+        top: 12rem;
+        right: 2rem;
+        color: $color-white;
+        width: 75%;
+    }
+
+    &__heading-span {
+
+        // Treat the span element as separate lines so you can set the padding on both sides.
+        box-decoration-break: clone;
+        padding: 1rem 1.5rem;
+
+        background-image: linear-gradient(to right, rgba($color-secondary-light, .8), rgba($color-secondary-dark, .8));
+    }
+
+    &__details {
+        padding: 3rem;
+
+        ul {
+            list-style: none;
+            margin: 0 auto;
+
+            // Give it a lower width so that the list-items don't span the entire block.
+            width: 80%;
+
+            li {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $color-grey-light-2;
+                }
+            }
+        }
+    }
+
+    &__cta {
+        text-align: center;
+        width: 90%;
+
+        // Center the cta box.
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__price-box {
+        color: $color-white;
+
+        // Space between the prices and the CTA button.
+        margin-bottom: 8rem;
+    }
+
+    &__price-only {
+        font-size: 1.4rem;
+        text-transform: uppercase;
+    }
+
+    &__price-value {
+        font-size: 6rem;
+        font-weight: 100;
+    }
+}
