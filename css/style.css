@@ -299,6 +299,45 @@ body {
   .feature-box:hover {
     transform: translateY(-1.5rem) scale(1.05); }
 
+.footer {
+  background-color: #333;
+  padding: 10rem 0;
+  color: #777;
+  font-size: 1.4rem; }
+  .footer__logo-box {
+    text-align: center;
+    margin-bottom: 8rem; }
+  .footer__logo {
+    width: 15rem;
+    height: auto; }
+  .footer__navigation {
+    border-top: 1px solid #777;
+    display: inline-block; }
+  .footer__list {
+    list-style: none;
+    padding-top: 2rem; }
+  .footer__item {
+    display: inline-block; }
+    .footer__item:not(:last-child) {
+      margin-right: 1rem; }
+  .footer__link:link, .footer__link:visited {
+    background-color: #333;
+    color: #F7F7F7;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 300;
+    display: inline-block;
+    transition: all .3s ease; }
+  .footer__link:hover {
+    color: #55c57a;
+    transform: rotate(4deg) scale(1.2);
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.4); }
+  .footer__copyright {
+    border-top: 1px solid #777;
+    padding-top: 2rem;
+    width: 80%;
+    float: right; }
+
 .row {
   max-width: 114rem;
   margin: 0 auto; }

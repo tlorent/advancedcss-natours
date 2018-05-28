@@ -1,0 +1,77 @@
+// MISTAKES
+// 1. Set font-size on .footer instead of individual elements. They will inherit this font-size.
+// 2. Logo does not need display: inline-block, it is already centred.
+// 3. Give all list items a margin-right (instead of padding-right) except the last one.
+// 4. Lower value for the transparency for the box-shadow.
+// 5. Wrong width for the copyright column.
+// 6. No use of the link & visited states, just the link itself.
+// 7. Not setting the height of the logo to auto. This is better then the browser will calculate and select a height for the logo element.
+// 8. Using utility classes instead of setting the margin and text-align property on the logo-box.
+
+.footer {
+    background-color: $color-grey-dark-3;
+    padding: 10rem 0;
+    color: $color-grey-dark;
+    // Set the font-size for all elements.
+    font-size: 1.4rem;
+
+    &__logo-box {
+        text-align: center;
+        margin-bottom: 8rem;
+    }
+
+    &__logo {
+        width: 15rem;
+        // auto -- the browser will calculate and select a height for the logo element.
+        height: auto;
+    }
+
+    &__navigation {
+        border-top: 1px solid $color-grey-dark;
+        // Ensure that the border does not run all the way through to the end. inline-elements don't occupy 100% of their width, only what their content is.
+        display: inline-block;
+    }
+
+    &__list {
+        list-style: none;
+        padding-top: 2rem;
+    }
+
+    &__item {
+        display: inline-block;
+
+        &:not(:last-child) {
+            margin-right: 1rem;
+        }
+    }
+
+    &__link {
+
+        &:link,
+        &:visited {
+            background-color: $color-grey-dark-3;
+            color: $color-grey-light;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 300;
+            // Also set the links to inline-block, otherwise you can't use the scale and rotate animations. Inline elements are not transformable.
+            display: inline-block;
+            transition: all .3s ease;
+        }
+
+        &:hover {
+            color: $color-primary;
+            transform: rotate(4deg) scale(1.2);
+            box-shadow: 0 .5rem 2rem rgba($color-black, .4);
+        }
+    }
+
+    &__copyright {
+        border-top: 1px solid $color-grey-dark;
+        padding-top: 2rem;
+
+        // Add these two rules to make the footer content look more centred.
+        width: 80%;
+        float: right;
+    }
+}
