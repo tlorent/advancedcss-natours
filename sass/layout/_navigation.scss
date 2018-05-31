@@ -1,0 +1,197 @@
+// MISTAKES PART 1
+// 1. Forgot to place the navigation fixed.
+// 2. No z-index on the list class, should be on the nav class.
+// 3. text-align: center on nav class instead of list class.
+// 4. Padding on item class instead of margin.
+// 5. Wrong padding values on &:link.
+// 6. Added a separate class for the span, maybe not necessary.
+// 7. Padding on the span instead of margin-right.
+
+// MISTAKES PART 2
+// 1. Background-image on the nav, not necessary because of the background element.
+// 2. Opacity 0 on the background element, not necessary because it is already hidden.
+// 3. Forgot box-shadow on the button.
+// 4. Opacity 1 on the checked state, because you are not using opacity 0 on the default state.
+
+// MISTAKES PART 3
+// 1. Mixed up height and width for icon.
+
+.navigation {
+
+    &__checkbox {
+        display: none;
+    }
+
+    &__button {
+        text-transform: uppercase;
+        background-color: $color-white;
+
+        // Make the button bigger so that it covers the background defined below.
+        height: 7rem;
+        width: 7rem;
+        border-radius: 50%;
+        position: fixed;
+
+        // Only give it .5rem more than the background class, because the button is 1rem wider & higher than the background so its half a rem further to the top and to the right.
+        top: 6rem;
+        right: 6rem;
+        z-index: 2000;
+
+        box-shadow: 0 1rem 3rem rgba($color-black, .1);
+        text-align: center;
+        cursor: pointer;
+    }
+
+    &__background {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        z-index: 1000;
+        transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1);
+
+        // opacity: 0;
+    }
+
+    // When the checkbox is checked, use the ~ (sibling selector) to select the background.
+    &__checkbox:checked ~ &__background {
+        // opacity: 1;
+        transform: scale(80);
+    }
+
+    &__nav {
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 100%;
+        // background-image: linear-gradient($color-primary, $color-primary-light);
+        z-index: 1500;
+        // text-align: center;
+
+        // Hide the navigation at first and make it unclickable. Give it 0% width, otherwise still clickable.
+        opacity: 0;
+        width: 0%;
+
+        transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    &__checkbox:checked ~ &__nav {
+        opacity: 1;
+        width: 100%;
+        left: 0;
+    }
+
+    &__list {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        list-style: none;
+        text-align: center;
+    }
+
+    &__item {
+        // padding: 1.5rem 0;
+        margin: 1rem 0;
+    }
+
+    &__link {
+
+        &:link,
+        &:visited {
+            display: inline-block;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-size: 3rem;
+            color: $color-white;
+            font-weight: 300;
+            transition: all .5s ease;
+
+            // Set the background-size to a huge percentage so that it increased, goes out of the element, and it can eventually cover the entire element.
+            background-size: 220%;
+
+            // Set the background to the corners of the element so that the initial background is not visible.
+            background-position: 0 0;
+
+            // padding: 0 1rem;
+            padding: 1rem 2rem;
+        }
+
+        &:hover, 
+        &:active {
+            color: $color-primary;
+            transform: translateX(1rem);
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+
+            // Set the background-position to 100% so it covers the entire element when hovered.
+            background-position: 100%;
+        }
+    }
+
+    &__span {
+        display: inline-block;
+        // padding: 0 1rem;
+        margin-right: 1rem;
+    }
+
+    &__icon { 
+
+        position: relative;
+        margin-top: 3.5rem;
+        transition: background-color .2s ease;
+
+        &,
+        &::before,
+        &::after {
+            background-color: $color-grey-dark-3;
+            height: 2px;
+            width: 3rem;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            transition: all .2s ease;
+        }
+
+        &::before {
+            top: -.8rem;
+        }
+
+        &::after {
+            top: .8rem;
+        }
+    }
+
+    &__checkbox:checked + &__button &__icon {
+        background-color: transparent;
+    }
+
+    &__checkbox:checked + &__button &__icon::before {
+        transform: rotate(135deg);
+        // Reset the top property to 0 to put the pseudo-element back in the middle position (the same as the icon, so they will overlap). Do this because otherwise the cross will not form properly, as the element will be rotated from its own top position which is originally -.8rem.
+        top: 0;
+    }
+
+    &__checkbox:checked + &__button &__icon::after {
+        transform: rotate(-135deg);
+        // Reset the top property to 0 to put the pseudo-element back in the middle position (the same as the icon, so they will overlap). Do this because otherwise the cross will not form properly, as the element will be rotated from its own top position which is originally .8rem.
+        top: 0;
+    }
+
+    &__button:hover &__icon::before {
+        top: -1rem;
+    }
+
+    &__button:hover &__icon::after {
+        top: 1rem;
+    }
+
+}
